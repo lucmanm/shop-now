@@ -1,4 +1,3 @@
-
 export default function Page() {
-  return <h1>View Admin products</h1>
+  return <h1>View Admin products</h1>;
 }
