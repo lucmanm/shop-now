@@ -1,5 +1,4 @@
 "use client"
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Field,
@@ -10,11 +9,12 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { signUp } from "@/lib/auth-client"
+import { cn } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
-import * as z from "zod"
-import { signUp } from "@/lib/auth-client"
 import { toast } from "sonner"
+import * as z from "zod"
 
 const formSchema = z.object({
   fullname: z
@@ -48,14 +48,16 @@ export function SignupForm({
   async function onSubmit(data: z.infer<typeof formSchema>) {
    try {
 
-    const result = await signUp.email({
-      name: data.fullname,
-      email: data.email,
-      password: data.password,
-    })
+const result = await signUp.email({
+  name: data.fullname,
+  email: data.email,
+  password: data.password,
+  callbackURL: `${window.location.origin}/account`,
+})
+
 
     if(result.error){
-      toast.error(result.error.message)
+      toast("Error Signing up: " + result.error.message)
       return
     }
    } catch (error) {
