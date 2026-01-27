@@ -12,8 +12,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
-import { toast } from "sonner"
 import * as z from "zod"
+import { signUp } from "@/lib/auth-client"
+import { toast } from "sonner"
 
 const formSchema = z.object({
   fullname: z
@@ -44,22 +45,22 @@ export function SignupForm({
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    toast("You submitted the following values:", {
-      description: (
-        <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
-      },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+   try {
+
+    const result = await signUp.email({
+      name: data.fullname,
+      email: data.email,
+      password: data.password,
     })
-    console.log(data)
+
+    if(result.error){
+      toast.error(result.error.message)
+      return
+    }
+   } catch (error) {
+    toast.error("Something went wrong. Please try again.")
+   }
   }
 
   return (
