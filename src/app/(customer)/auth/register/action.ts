@@ -1,0 +1,28 @@
+"use server";
+
+import { signUp } from "@/lib/auth-client";
+import { SignupData, signupSchema } from "@/lib/validators/sign-up";
+
+
+export async function signupAction(data: SignupData) {
+    try {
+        const parsed = signupSchema.safeParse(data)
+
+        if (!parsed.success) {
+            return { error: "Invalid form data" }
+        }
+
+        const result = await signUp.email({
+            name: parsed.data.fullname,
+            email: parsed.data.email,
+            password: parsed.data.confirmPassword,
+        })
+
+        if (result.error) {
+            return { error: result.error.message }
+        }
+
+    } catch (error) {
+        return { error: error instanceof Error ? error.message : "An error occurred during signup" }
+    }
+}
