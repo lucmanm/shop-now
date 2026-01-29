@@ -1,21 +1,20 @@
 "use server";
 
-import { signUp } from "@/lib/auth-client";
-import { SignupData, signupSchema } from "@/app/(customer)/auth/register/sign-up";
+import { signIn } from "@/lib/auth-client";
+import { TLogin, zloginSchema } from "./zod-schema";
 
 
-export async function signupAction(data: SignupData) {
+export async function loginAction(data: TLogin) {
     try {
-        const parsed = signupSchema.safeParse(data)
+        const parsed = zloginSchema.safeParse(data)
 
         if (!parsed.success) {
             return { error: "Invalid form data" }
         }
 
-        const result = await signUp.email({
-            name: parsed.data.fullname,
+        const result = await signIn.email({
             email: parsed.data.email,
-            password: parsed.data.confirmPassword,
+            password: parsed.data.password,
         })
 
         if (result.error) {
