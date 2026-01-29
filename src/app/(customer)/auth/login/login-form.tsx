@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -10,14 +10,15 @@ import {
   FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 import { placeholderImage } from "@/constant/image";
-import { useForm } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TLogin, zloginSchema } from "./zod-schema";
-import { toast } from "sonner";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { loginAction } from "./action";
+import { TLogin, zloginSchema } from "./zod-schema";
 
 
 
@@ -25,6 +26,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
 
   const router  = useRouter();
   const {
@@ -38,12 +40,10 @@ export function LoginForm({
   const onSubmit = async (data: TLogin) => {
     try {
       const res = await loginAction(data)
-
       if (res?.error) {
         toast.error(res.error)
         return
       }
-
 
     } catch {
       toast.error("Something went wrong. Please try again.")
@@ -144,6 +144,7 @@ export function LoginForm({
               src={placeholderImage}
               width={500}
               height={600}
+              loading="eager"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />

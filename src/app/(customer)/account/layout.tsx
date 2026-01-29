@@ -1,11 +1,13 @@
 import { accountMenu } from "@/constant/account-menu";
 import { Nav } from "./sidebar";
+export const dynamic = "force-dynamic"
 
-export default function AccountRootLayout({
+export default   function AccountRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <section className="container mx-auto grid grid-cols-12 gap-6 p-4">
       <div className="col-span-3 rounded-md max-sm:hidden">

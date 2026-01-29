@@ -1,6 +1,9 @@
+"use client";
 import { accountMenu } from "@/constant/account-menu";
 
 export default function Page() {
+
+
   return (
     <section className="mx-auto grid gap-4 lg:container max-sm:grid-cols-1 max-sm:gap-3 max-sm:p-3 md:grid-cols-3">
       {accountMenu.map((data, idx) => (
