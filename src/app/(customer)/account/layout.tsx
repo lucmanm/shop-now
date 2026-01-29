@@ -1,8 +1,7 @@
 import { accountMenu } from "@/constant/account-menu";
 import { Nav } from "./sidebar";
-export const dynamic = "force-dynamic"
 
-export default   function AccountRootLayout({
+export default async  function AccountRootLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginAction } from "./action";
-import { TLogin, zloginSchema } from "./zod-schema";
+import { TLogin, zloginSchema } from "./zod-sign-in-schema";
 
 
 

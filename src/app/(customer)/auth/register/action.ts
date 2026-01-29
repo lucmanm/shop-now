@@ -1,7 +1,7 @@
 "use server";
 
 import { signUp } from "@/lib/auth-client";
-import { SignupData, signupSchema } from "@/app/(customer)/auth/register/sign-up";
+import { SignupData, signupSchema } from "@/app/(customer)/auth/register/zod-sign-up-schema";
 
 
 export async function signupAction(data: SignupData) {

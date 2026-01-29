@@ -1,7 +1,7 @@
 "use server";
 
 import { signIn } from "@/lib/auth-client";
-import { TLogin, zloginSchema } from "./zod-schema";
+import { TLogin, zloginSchema } from "./zod-sign-in-schema";
 
 
 export async function loginAction(data: TLogin) {

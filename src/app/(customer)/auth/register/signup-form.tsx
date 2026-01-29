@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { signupAction } from "./action"
 import { toast } from "sonner"
-import { SignupData, signupSchema } from "@/app/(customer)/auth/register/sign-up"
+import { SignupData, signupSchema } from "@/app/(customer)/auth/register/zod-sign-up-schema"
 import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
