@@ -25,7 +25,7 @@ export const signupSchema = z
             .string()
             .min(5, "Full name must be at least 5 characters.")
             .max(32, "Full name must be at most 32 characters."),
-        email: z.email("Invalid email address."),
+        email: z.string().email({ message: "Invalid email address." }),
         password: z
             .string()
             .min(8, "Password must be at least 8 characters."),
@@ -37,7 +37,6 @@ export const signupSchema = z
     })
 
 export type TSignup = z.infer<typeof signupSchema>
-
 
 
 export function SignupForm({
@@ -71,8 +70,6 @@ export function SignupForm({
 
     } catch {
       toast.error("Something went wrong. Please try again.")
-    } finally {
-      router.push("/auth/login")
     }
   }
 
@@ -85,7 +82,6 @@ export function SignupForm({
             Fill in the form below to create your account
           </p>
         </div>
-
         <Controller
           name="fullname"
           control={form.control}
