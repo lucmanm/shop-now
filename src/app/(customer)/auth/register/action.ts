@@ -1,11 +1,12 @@
 "use server";
 
 import { signUp } from "@/lib/auth-client";
-import { SignupData, signupSchema } from "@/app/(customer)/auth/register/zod-sign-up-schema";
+import { signupSchema, TSignup } from "./signup-form";
 
 
-export async function signupAction(data: SignupData) {
+export async function signupAction(data: TSignup) {
     try {
+
         const parsed = signupSchema.safeParse(data)
 
         if (!parsed.success) {
@@ -15,12 +16,14 @@ export async function signupAction(data: SignupData) {
         const result = await signUp.email({
             name: parsed.data.fullname,
             email: parsed.data.email,
-            password: parsed.data.confirmPassword,
+            password: parsed.data.password,
         })
 
         if (result.error) {
             return { error: result.error.message }
         }
+
+        return { success: true }
 
     } catch (error) {
         return { error: error instanceof Error ? error.message : "An error occurred during signup" }

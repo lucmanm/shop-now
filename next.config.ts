@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
         destination: '/auth/login',
         permanent: true,
       },
+      {
+        source: '/login',
+        destination: '/auth/login',
+        permanent: true,
+      },
       // Wildcard path matching
       // {
       //   source: '/blog/:slug',

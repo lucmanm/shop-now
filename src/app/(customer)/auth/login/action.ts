@@ -1,7 +1,7 @@
 "use server";
 
 import { signIn } from "@/lib/auth-client";
-import { TLogin, zloginSchema } from "./zod-sign-in-schema";
+import { TLogin, zloginSchema } from "./login-form";
 
 
 export async function loginAction(data: TLogin) {
@@ -21,7 +21,9 @@ export async function loginAction(data: TLogin) {
             return { error: result.error.message }
         }
 
+        return { success: true }
+
     } catch (error) {
-        return { error: error instanceof Error ? error.message : "An error occurred during signup" }
+        return { error: error instanceof Error ? error.message : "An error occurred during login" }
     }
 }

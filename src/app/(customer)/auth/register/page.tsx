@@ -1,10 +1,11 @@
 import { GalleryVerticalEnd } from "lucide-react"
 
-import Image from "next/image"
 import { placeholderImage } from "@/constant/image"
+import Image from "next/image"
 import { SignupForm } from "./signup-form"
 
 export default function SignupPage() {
+
   return (
     <div className="grid min-h-svh lg:grid-cols-2 w-full ">
       <div className="flex flex-col gap-4 p-6 md:p-10">

@@ -11,12 +11,32 @@ import {
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
-import { signupAction } from "./action"
-import { toast } from "sonner"
-import { SignupData, signupSchema } from "@/app/(customer)/auth/register/zod-sign-up-schema"
 import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { Controller, useForm } from "react-hook-form"
+import { toast } from "sonner"
+import { z } from "zod"
+import { signupAction } from "./action"
+
+
+export const signupSchema = z
+    .object({
+        fullname: z
+            .string()
+            .min(5, "Full name must be at least 5 characters.")
+            .max(32, "Full name must be at most 32 characters."),
+        email: z.email("Invalid email address."),
+        password: z
+            .string()
+            .min(8, "Password must be at least 8 characters."),
+        confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords don't match",
+        path: ["confirmPassword"],
+    })
+
+export type TSignup = z.infer<typeof signupSchema>
 
 
 
@@ -27,7 +47,7 @@ export function SignupForm({
  const router = useRouter()
 
 
-  const form = useForm<SignupData>({
+  const form = useForm<TSignup>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
       fullname: "",
@@ -37,12 +57,13 @@ export function SignupForm({
     },
   })
 
-  async function onSubmit(data: SignupData) {
+  async function onSubmit(data: TSignup) {
     try {
       const res = await signupAction(data)
 
-      if (res?.error) {
+      if (res?.success !== true) {
         toast.error(res.error)
+        router.refresh()
         return
       }
 
