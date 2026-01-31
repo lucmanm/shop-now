@@ -8,8 +8,9 @@ export default async function Page() {
    const session = await auth.api.getSession({
         headers: await headers()
     })
+
     if(!session) {
-        redirect("/auth/sign-in")
+        redirect("/auth/login")
     }
 
     console.log(session.user.name);
