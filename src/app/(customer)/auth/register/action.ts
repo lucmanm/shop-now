@@ -1,5 +1,3 @@
-"use server";
-
 import { signUp } from "@/lib/auth-client";
 import { TSignup } from "./signup-form";
 

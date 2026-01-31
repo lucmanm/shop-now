@@ -1,4 +1,3 @@
-"use server";
 
 import { signIn } from "@/lib/auth-client";
 import { TLogin, zloginSchema } from "./login-form";
